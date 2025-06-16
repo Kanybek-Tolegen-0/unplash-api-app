@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { mainLazyPage } from "../pages/main-page";
-import { ImageLazyPage } from "../pages/image-page";
-import { FavouritesLazyPage } from "../pages/favourites-page";
+import { imageLazyPage } from "../pages/image-page";
+import { favouritesLazyPage } from "../pages/favourites-page";
 
 export const router = createBrowserRouter([
     {
@@ -16,11 +16,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: ":id",
-                element: <ImageLazyPage />
+                element: <imageLazyPage.Component />,
+                loader: imageLazyPage.loader
             },
             {
                 path: "/favourites",
-                element: <FavouritesLazyPage />
+                element: <favouritesLazyPage.Component />
             }
         ]
     }
