@@ -1,5 +1,11 @@
 import { lazy } from "react";
+import { action } from "./action";
 
-export const MainLazyPage = lazy(() => import("./main-page").then((module) => ({
+const MainLazyPage = lazy(() => import("./main-page").then((module) => ({
     default: module.MainPage
 })))
+
+export const mainLazyPage = {
+    Component: MainLazyPage,
+    action
+}
