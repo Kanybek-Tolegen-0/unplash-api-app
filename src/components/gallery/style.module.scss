@@ -1,0 +1,19 @@
+.gallery {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    justify-content: center;
+
+    &__image {
+        min-width: 400px;
+        min-height: 400px;
+        background-position: center;
+        background-size: cover;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+    }
+}
