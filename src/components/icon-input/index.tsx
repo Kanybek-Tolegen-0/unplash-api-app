@@ -7,10 +7,8 @@ export const IconInput = ({ onChange }: { onChange: (value: string) => void }) =
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target
-        setValue(() => {
-            onChange(value)
-            return value
-        })
+        setValue(value)
+        onChange(value)
     }
 
     return <div className={styles["icon-input"]}>
