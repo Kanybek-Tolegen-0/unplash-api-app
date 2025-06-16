@@ -1,16 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from "vite-plugin-svgr";
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    react(), 
-    svgr({
-      svgrOptions: {
-        exportType: "default",
-        icon: true,
-      },
-      include: ['**/*.svg', '*.svg']
-  })],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, './src')
+
+  return ({
+    plugins: [
+      react(), 
+      svgr({
+        svgrOptions: {
+          exportType: "default",
+          icon: true,
+        },
+        include: ['**/*.svg', '*.svg']
+      })
+    ],
+    define: {
+      "import.meta.env.VITE_UNSPLASH_ACCESS_KEY": JSON.stringify(env.VITE_UNSPLASH_ACCESS_KEY),
+    },
+  })
 })
