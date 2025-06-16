@@ -1,12 +1,13 @@
-import type { JSX } from 'react';
+import styles from './style.module.scss'
 
 interface IconButtonProps {
-    Icon: () => JSX.Element, label: string
+    Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
+    label: string
 }
 
 export const IconButton = ({ Icon, label }: IconButtonProps) => {
-    return <div>
+    return (<div className={styles["button-wrapper"]}>
         <Icon />
-        <button>{label}</button>
+        <button className={styles.button}>{label}</button>
     </div>
-}
+)}
