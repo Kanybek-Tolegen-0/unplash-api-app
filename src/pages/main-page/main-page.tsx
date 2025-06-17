@@ -14,7 +14,7 @@ export const MainPage = () => {
 
 
     return <div>
-        <BackgroundImage backgroundImage={mainImageUrl}><IconInput onChange={onSearch} /></BackgroundImage>
+        <BackgroundImage backgroundImage={mainImageUrl} style={{ padding: "90px 0"}}><IconInput onChange={onSearch} /></BackgroundImage>
         {actionData ? <ContentLayout><Gallery images={actionData.results}/></ContentLayout> : null }
     </div>
 }

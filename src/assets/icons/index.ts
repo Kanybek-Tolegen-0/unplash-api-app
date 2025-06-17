@@ -1,3 +1,6 @@
 export { default as LikeIcon } from './like.svg'
 export { default as LogoIcon } from './logo.svg'
 export { default as SearchIcon } from './search.svg'
+export { default as DownloadIcon } from './download.svg'
+export { default as Like2Icon } from './like-2.svg'
+export { default as Search2Icon } from './search-2.svg'

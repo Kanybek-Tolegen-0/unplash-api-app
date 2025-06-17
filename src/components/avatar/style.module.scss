@@ -1,0 +1,31 @@
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    &__photo {
+        border-radius: 8px;
+        border: 1px solid white;
+        width: 55px;
+        height: 55px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+.user {
+    color: white;
+    font-weight: 400;
+    
+    &__fio {
+        font-size: 30px;
+    }
+    &__username {
+        font-size: 18px;
+    }
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+}
