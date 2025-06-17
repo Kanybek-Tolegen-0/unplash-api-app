@@ -1,10 +1,12 @@
 import { useActionData, useSubmit } from "react-router-dom";
 import { BackgroundImage, ContentLayout, Gallery, IconInput } from "../../components";
 import type { SearchImageResponse } from "../../models";
-import mainImageUrl from "../../assets/images/main.jpg"
+
+import { useRandomImage } from "../../hooks";
 export const MainPage = () => {
     const submit = useSubmit();
     const actionData = useActionData<SearchImageResponse>()
+    const { randomImage } = useRandomImage();
     
     const onSearch = (search: string) => {
         if(search) {
@@ -14,7 +16,7 @@ export const MainPage = () => {
 
 
     return <div>
-        <BackgroundImage backgroundImage={mainImageUrl} style={{ padding: "90px 0"}}><IconInput onChange={onSearch} /></BackgroundImage>
+        {randomImage ? <BackgroundImage backgroundImage={randomImage?.urls.full} style={{ padding: "90px 0"}}><IconInput onChange={onSearch} /></BackgroundImage> : null}
         {actionData ? <ContentLayout><Gallery images={actionData.results}/></ContentLayout> : null }
     </div>
 }
