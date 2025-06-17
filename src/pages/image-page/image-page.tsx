@@ -10,7 +10,7 @@ export const ImagePage = () => {
     const isMobile = useIsMobile();
     const loaderData = useLoaderData<SearchImage>();
     const { revalidate } = useRevalidator();
-    const { toggleLike } = useLikes()
+    const {isLiked, toggleLike } = useLikes(loaderData)
 
     const { randomImage } = useRandomImage()
 
@@ -46,17 +46,17 @@ export const ImagePage = () => {
             <div style={{ width: "max-content", display: "flex", flexDirection: "column", gap: "8px", position: "absolute", left: "50%", top: "10%", transform: "translate(-50%, 0)"}}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Avatar user={loaderData.user} />
-              <ActionButtons onDownload={onDownload} onLikeChange={() => {
+              <ActionButtons isLiked={isLiked} onDownload={onDownload} onLikeChange={() => {
                 if(loaderData?.id) {
-                  toggleLike(loaderData?.id)
+                  toggleLike(loaderData)
                 }
                 }} />
             </div>
             <BackgroundImage
-              backgroundImage={loaderData.urls.full} style={{
+              backgroundImage={isMobile ? loaderData.urls.small : loaderData.urls.full} style={{
             }}
-              width={1482}
-              height={600}
+              width={isMobile ? 400 : 1482}
+              height={isMobile ? 227 : 600}
             />
             </div>
         </div> : null

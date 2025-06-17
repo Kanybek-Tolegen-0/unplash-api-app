@@ -1,3 +1,4 @@
+import { useIsMobile } from '../../hooks'
 import styles from './style.module.scss'
 
 interface IconButtonProps {
@@ -9,14 +10,19 @@ interface IconButtonProps {
 }
 
 export const IconButton = ({ Icon, label, bgColor, color, onClick }: IconButtonProps) => {
+    const isMobile = useIsMobile();
+
+    const button = label ? <button className={styles.button} style={{
+            color: color ?? "white",
+        }}>{label}</button> : null
+
     return (<div className={styles["button-wrapper"]} style={{
         background: bgColor ?? "white",
         padding: label ? "8px 16px" : "8px"
     }}
+
     onClick={onClick}>
         <Icon />
-        {label ? <button className={styles.button} style={{
-            color: color ?? "white",
-        }}>{label}</button> : null}
+        {isMobile ? null :  button}
     </div>
 )}

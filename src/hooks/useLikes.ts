@@ -1,7 +1,12 @@
+import { useState, useEffect, useCallback } from "react";
+import type { SearchImage } from "../models";
+
 const STORAGE_KEY = "liked_photos";
 
-export const useLikes = () => {
-  const getLikedPhotos = (): string[] => {
+export const useLikes = (image?: SearchImage) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const getLikedPhotos = (): SearchImage[] => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       return stored ? JSON.parse(stored) : [];
@@ -10,38 +15,47 @@ export const useLikes = () => {
     }
   };
 
-  const setLikedPhotos = (ids: string[]) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  const getIsLiked = useCallback((img: SearchImage): boolean => {
+    return getLikedPhotos().some(({ id }) => id === img.id);
+  }, []);
+
+  const setLikedPhotos = (photos: SearchImage[]) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
   };
 
-  const isLiked = (id: string): boolean => {
-    return getLikedPhotos().includes(id);
-  };
-
-  const onLikeImage = (id: string) => {
+  const onLikeImage = (img: SearchImage) => {
     const liked = getLikedPhotos();
-    if (!liked.includes(id)) {
-      setLikedPhotos([...liked, id]);
+    if (!getIsLiked(img)) {
+      setLikedPhotos([...liked, img]);
     }
   };
 
-  const onDisLikeImage = (id: string) => {
+  const onDisLikeImage = (img: SearchImage) => {
     const liked = getLikedPhotos();
-    setLikedPhotos(liked.filter(photoId => photoId !== id));
+    setLikedPhotos(liked.filter(({ id }) => id !== img.id));
   };
 
-  const toggleLike = (id: string) => {
-    if (isLiked(id)) {
-      onDisLikeImage(id);
+  const toggleLike = (img: SearchImage) => {
+    if (getIsLiked(img)) {
+      onDisLikeImage(img);
+      setIsLiked(false);
     } else {
-      onLikeImage(id);
+      onLikeImage(img);
+      setIsLiked(true);
     }
   };
+
+  useEffect(() => {
+    if (image) {
+      setIsLiked(getIsLiked(image));
+    }
+  }, [getIsLiked, image]);
 
   return {
     isLiked,
+    toggleLike,
     onLikeImage,
     onDisLikeImage,
-    toggleLike,
+    getLikedPhotos,
   };
 };

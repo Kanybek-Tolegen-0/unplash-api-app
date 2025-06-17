@@ -16,4 +16,8 @@
             transition: opacity 0.2s;
         }
     }
+
+    &__mobile {
+        grid-template-columns: 1fr;
+    }
 }
